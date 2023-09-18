@@ -1,0 +1,32 @@
+_G.Active = true
+local spell = "Flamma" -- put spell name here lol
+local plr = game.Players.LocalPlayer
+local uis = game:GetService("UserInputService")
+local keybind = Enum.KeyCode.E -- put the key you want here
+
+uis.InputBegan:connect(function(k, bruh)
+    if bruh then return end
+    
+    if k.KeyCode == keybind then
+      if _G.Active == false then
+            _G.Active = true
+        else
+            _G.Active = false
+        end
+    end
+end)
+
+while true do
+    wait()
+    while _G.Active == true do
+       local event = workspace.Live[plr.Name]:FindFirstChild(spell).Action
+       
+       event:FireServer()
+       
+       wait(2)
+       
+       game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+       
+       game.Players.LocalPlayer.Backpack:FindFirstChild(spell).Parent = game.Players.LocalPlayer.Character
+    end
+end
